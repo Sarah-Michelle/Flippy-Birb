@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://rukn3h68gwnv"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_nc1cu"]
+[ext_resource type="Texture2D" uid="uid://b7otllisp0d3n" path="res://assets/Flappy Bird Night Background.webp" id="1_pg2w1"]
+[ext_resource type="PackedScene" uid="uid://c6vb4m1he1v82" path="res://scenes/pipe.tscn" id="2_e3yrp"]
+[ext_resource type="PackedScene" uid="uid://cltsud5nwhfxg" path="res://scenes/bird.tscn" id="3_austq"]
+[ext_resource type="PackedScene" uid="uid://cxk6ul7cmf6kb" path="res://scenes/ground.tscn" id="4_0524a"]
+[ext_resource type="FontFile" uid="uid://b3vqwcg8k1258" path="res://fonts/Jersey15-Regular.ttf" id="6_8t32c"]
+[ext_resource type="PackedScene" uid="uid://cnh7fsufa2wwh" path="res://scenes/game_over_screen.tscn" id="6_fvppq"]
+[ext_resource type="PackedScene" uid="uid://mli81vld4jau" path="res://scenes/game_start_screen.tscn" id="7_4pwrs"]
+[ext_resource type="AudioStream" uid="uid://1400t0g6aykt" path="res://audio/Game Sound 8bit.mp3" id="9_va44w"]
+[ext_resource type="AudioStream" uid="uid://x7p0py2dqbjq" path="res://audio/Game Music Loop 7.mp3" id="10_43bki"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_nc1cu")
+pipe_scene = ExtResource("2_e3yrp")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.973333, 1)
+texture = ExtResource("1_pg2w1")
+offset = Vector2(450, 578)
+
+[node name="Bird" parent="." instance=ExtResource("3_austq")]
+
+[node name="Ground" parent="." instance=ExtResource("4_0524a")]
+z_index = 1
+
+[node name="PipeTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="ScoreLabel" type="Label" parent="."]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.5
+offset_top = 150.0
+offset_right = 30.5
+offset_bottom = 211.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_8t32c")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+
+[node name="GameOverScreen" parent="." instance=ExtResource("6_fvppq")]
+
+[node name="GameStartScreen" parent="." instance=ExtResource("7_4pwrs")]
+
+[node name="game_over" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_va44w")
+
+[node name="game_start" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_43bki")
+volume_db = -10.0
+
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
+[connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
+[connection signal="restart" from="GameOverScreen" to="." method="_on_game_over_screen_restart"]
+[connection signal="play_game" from="GameStartScreen" to="." method="_on_game_start_screen_play_game"]

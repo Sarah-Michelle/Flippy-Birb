@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://mli81vld4jau"]
+
+[ext_resource type="Texture2D" uid="uid://b7otllisp0d3n" path="res://assets/Flappy Bird Night Background.webp" id="1_sq7jy"]
+[ext_resource type="Script" path="res://scenes/game_start_screen.gd" id="1_y7ern"]
+[ext_resource type="FontFile" uid="uid://b3vqwcg8k1258" path="res://fonts/Jersey15-Regular.ttf" id="3_42ost"]
+[ext_resource type="Texture2D" uid="uid://dofo5nbqbgn1u" path="res://assets/flippy-bird-title.png" id="3_ktwuq"]
+
+[node name="GameStartScreen" type="CanvasLayer"]
+script = ExtResource("1_y7ern")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0, -19.5324)
+scale = Vector2(0.972222, 0.934565)
+texture = ExtResource("1_sq7jy")
+offset = Vector2(450, 500)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(434, 352)
+scale = Vector2(2.88235, 2.88235)
+texture = ExtResource("3_ktwuq")
+
+[node name="PlayButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -39.0
+offset_right = 103.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_42ost")
+theme_override_font_sizes/font_size = 60
+text = "Play"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

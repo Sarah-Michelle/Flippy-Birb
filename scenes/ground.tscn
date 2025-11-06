@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxk6ul7cmf6kb"]
+
+[ext_resource type="Script" path="res://scenes/ground.gd" id="1_w4soa"]
+[ext_resource type="Texture2D" uid="uid://dn2ogsg7gxvp6" path="res://assets/Ground-night.png" id="2_qek55"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnple"]
+size = Vector2(1729.5, 120)
+
+[node name="Ground" type="Area2D"]
+script = ExtResource("1_w4soa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.371, 1101.5)
+scale = Vector2(1.68555, 1.15)
+texture = ExtResource("2_qek55")
+offset = Vector2(510, 2.08165e-12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(865, 1099)
+shape = SubResource("RectangleShape2D_lnple")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
