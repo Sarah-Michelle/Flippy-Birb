@@ -5,7 +5,7 @@ extends Node
 var game_running : bool
 var game_over : bool
 var scroll
-var score
+var score : int = 0;
 const SCROLL_SPEED : int = 4
 var screen_size : Vector2i
 var ground_height : int
@@ -14,24 +14,23 @@ const PIPE_DELAY : int = 100
 const PIPE_RANGE : int = 150
 
 func _ready():
-	$game_start.play()
-	#screen_size = get_window().size
+	AudioController.play_music()
 	screen_size = get_viewport().get_visible_rect().size
 	ground_height = $Ground.get_node("Sprite2D").texture.get_height()
-	#new_game()
-	stop_game()
+	new_game()
+	#stop_game()
 
 func new_game():
+	get_tree().paused = false
 	game_running = false
 	game_over = false
 	score = 0
 	scroll = 0
 	pipes.clear()
-	$GameOverScreen.hide()
-	#$GameStartScreen.visibility_changed = true
+	Globals.score = score
 	$ScoreLabel.text = str(score)
 	get_tree().call_group('pipes', 'queue_free')
-	
+	$GameOver.hide()
 	generate_pipes()
 	$Bird.reset()
 
@@ -60,7 +59,8 @@ func check_top():
 func stop_game():
 	$PipeTimer.stop()
 	$Bird.flying = false
-	$GameOverScreen.show()
+	$GameOver.game_over()
+	#$GameOverScreen.show()
 	game_running = false
 	game_over = true
 
@@ -91,22 +91,14 @@ func generate_pipes():
 
 func scored():
 	score += 1;
+	Globals.score = score;
 	$ScoreLabel.text = str(score)
 
 func bird_hit():
 	$Bird.falling = true
-	$game_over.play()
+	AudioController.play_game_over()
 	stop_game()
 
 func _on_ground_hit():
 	$Bird.falling = true
 	stop_game()
-
-func _on_game_over_screen_restart():
-	$game_over.stop()
-	new_game()
-
-func _on_game_start_screen_play_game():
-	$game_start.stop()
-	$GameStartScreen.hide()
-	new_game()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://rukn3h68gwnv"]
+[gd_scene load_steps=14 format=3 uid="uid://rukn3h68gwnv"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_nc1cu"]
 [ext_resource type="Texture2D" uid="uid://b7otllisp0d3n" path="res://assets/Flappy Bird Night Background.webp" id="1_pg2w1"]
@@ -8,8 +8,34 @@
 [ext_resource type="FontFile" uid="uid://b3vqwcg8k1258" path="res://fonts/Jersey15-Regular.ttf" id="6_8t32c"]
 [ext_resource type="PackedScene" uid="uid://cnh7fsufa2wwh" path="res://scenes/game_over_screen.tscn" id="6_fvppq"]
 [ext_resource type="PackedScene" uid="uid://mli81vld4jau" path="res://scenes/game_start_screen.tscn" id="7_4pwrs"]
-[ext_resource type="AudioStream" uid="uid://1400t0g6aykt" path="res://audio/Game Sound 8bit.mp3" id="9_va44w"]
-[ext_resource type="AudioStream" uid="uid://x7p0py2dqbjq" path="res://audio/Game Music Loop 7.mp3" id="10_43bki"]
+[ext_resource type="Script" path="res://scenes/GameOver.gd" id="9_cj06i"]
+[ext_resource type="FontFile" uid="uid://y7kapeixpcmm" path="res://fonts/flappy-font.ttf" id="9_d54sy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udxsg"]
+bg_color = Color(0, 0.027451, 0.360784, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7063"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4poo5"]
+bg_color = Color(0.921569, 0.372549, 0.0941176, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="Main" type="Node"]
 script = ExtResource("1_nc1cu")
@@ -33,28 +59,116 @@ z_index = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -30.5
+offset_left = -30.0
 offset_top = 150.0
-offset_right = 30.5
-offset_bottom = 211.0
+offset_right = 50.0
+offset_bottom = 270.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("6_8t32c")
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 120
 text = "0"
 horizontal_alignment = 1
 
 [node name="GameOverScreen" parent="." instance=ExtResource("6_fvppq")]
+visible = false
 
 [node name="GameStartScreen" parent="." instance=ExtResource("7_4pwrs")]
+visible = false
 
-[node name="game_over" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_va44w")
+[node name="GameOver" type="CanvasLayer" parent="."]
+script = ExtResource("9_cj06i")
 
-[node name="game_start" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_43bki")
-volume_db = -10.0
+[node name="Panel" type="Panel" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 87.0
+offset_top = 68.0
+offset_right = -62.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_udxsg")
+
+[node name="Title" type="Label" parent="GameOver"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -227.5
+offset_top = 183.0
+offset_right = 227.5
+offset_bottom = 383.0
+grow_horizontal = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("9_d54sy")
+theme_override_font_sizes/font_size = 70
+text = "That's all 
+you got? "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TotalScore" type="Label" parent="GameOver"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_d54sy")
+theme_override_font_sizes/font_size = 160
+text = "0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -317.0
+offset_top = -311.0
+offset_right = 341.0
+offset_bottom = -135.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="RestartButton" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0.027451, 0.360784, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_d54sy")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_s7063")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4poo5")
+text = "Retry"
+
+[node name="Quit" type="Button" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0.027451, 0.360784, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_d54sy")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_s7063")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4poo5")
+text = "Quit"
 
 [connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
 [connection signal="timeout" from="PipeTimer" to="." method="_on_pipe_timer_timeout"]
 [connection signal="restart" from="GameOverScreen" to="." method="_on_game_over_screen_restart"]
 [connection signal="play_game" from="GameStartScreen" to="." method="_on_game_start_screen_play_game"]
+[connection signal="pressed" from="GameOver/VBoxContainer/RestartButton" to="GameOver" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="GameOver/VBoxContainer/Quit" to="GameOver" method="_on_quit_pressed"]

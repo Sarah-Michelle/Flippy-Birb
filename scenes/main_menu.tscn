@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=3 uid="uid://cfsb28t5fbl0l"]
+
+[ext_resource type="Texture2D" uid="uid://b7otllisp0d3n" path="res://assets/Flappy Bird Night Background.webp" id="1_67aa4"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_i3max"]
+[ext_resource type="Texture2D" uid="uid://dofo5nbqbgn1u" path="res://assets/flippy-bird-title.png" id="2_v3oeh"]
+[ext_resource type="FontFile" uid="uid://y7kapeixpcmm" path="res://fonts/flappy-font.ttf" id="3_gp7eb"]
+[ext_resource type="Texture2D" uid="uid://qqtl5ffah3jn" path="res://assets/Flappy Bird Bird1.png" id="5_rw5m1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s8rdo"]
+texture = ExtResource("1_67aa4")
+modulate_color = Color(0.550958, 0.550959, 0.550958, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87eim"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(2.08165e-12, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bch7"]
+bg_color = Color(0.921569, 0.372549, 0.0941176, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i76g6"]
+bg_color = Color(0.921569, 0.372549, 0.0941176, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkw5k"]
+bg_color = Color(0.921569, 0.372549, 0.0941176, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qpscf"]
+texture = ExtResource("2_v3oeh")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i3max")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_s8rdo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -178.0
+offset_top = -84.5
+offset_right = 178.0
+offset_bottom = 290.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="StartGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0.00784314, 0.196078, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_gp7eb")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_87eim")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1bch7")
+text = "Start game"
+
+[node name="Settings" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0.00784314, 0.196078, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_gp7eb")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_87eim")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i76g6")
+text = "Settings"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0.00784314, 0.196078, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_gp7eb")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_87eim")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wkw5k")
+text = "Quit"
+
+[node name="GameTitle" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -259.5
+offset_top = -349.5
+offset_right = 259.5
+offset_bottom = -157.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qpscf")
+
+[node name="FlappyBirdBird1" type="Sprite2D" parent="."]
+position = Vector2(135, 516)
+texture = ExtResource("5_rw5m1")
+
+[connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

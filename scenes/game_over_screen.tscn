@@ -21,5 +21,3 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_lhnfc")
 theme_override_font_sizes/font_size = 50
 text = "Restart"
-
-[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
